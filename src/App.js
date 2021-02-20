@@ -1,5 +1,5 @@
 import './App.css';
-import MainPageComponent from './main/main.js';
+import MainPageComponent from './main/index.js';
 import { Switch, Route } from 'react-router-dom';
 import ProductPageComponent from './product';
 import UploadPageComponent from './upload';
