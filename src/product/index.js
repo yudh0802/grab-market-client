@@ -40,7 +40,19 @@ function ProductPageComponent() {
                 message.info('구매가 완료되었습니다');
             })
             .catch((error) => {
-                message.error(`에러가 발생했ㅅ브니다. ${error.message}`);
+                message.error(`에러가 발생했습니다. ${error.message}`);
+            });
+    };
+
+    const onClickCancelPruchase = () => {
+        axios
+            .post(`${API_URL}/cancel/${id}`)
+            .then((result) => {
+                getProduct();
+                message.info('구매가 취소되었습니다');
+            })
+            .catch((error) => {
+                message.error(`구매 취소 에러가 발생했습니다. ${error.message}`);
             });
     };
 
@@ -61,11 +73,13 @@ function ProductPageComponent() {
                     id="purchase-button"
                     size="large"
                     type="primary"
-                    danger
                     onClick={onClickPurchase}
                     disabled={product.soldout === 1 ? true : false}
                 >
                     {product.soldout === 1 ? `구매 완료` : `즉시 구매하기`}
+                </Button>
+                <Button size="small" type="primary" danger onClick={onClickCancelPruchase} disabled={product.soldout === 0 ? true : false}>
+                    구매 취소
                 </Button>
 
                 <pre id="description">{product.description}</pre>
