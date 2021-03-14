@@ -30,13 +30,13 @@ function App() {
             <div id="body">
                 <Switch>
                     <Route exact={true} path="/">
-                        <MainPageComponent />;
+                        <MainPageComponent />
                     </Route>
                     <Route exact={true} path="/products/:id">
-                        <ProductPageComponent />;
+                        <ProductPageComponent />
                     </Route>
                     <Route exact={true} path="/upload">
-                        <UploadPageComponent />;
+                        <UploadPageComponent />
                     </Route>
                 </Switch>
             </div>
