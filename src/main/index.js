@@ -27,7 +27,7 @@ function MainPageComponent() {
                 // setQuery(potato);
             })
             .catch(function (err) {
-                console.error('에러 발생 : ', err);
+                console.error('서버 통신부터 에러 발생 : ', err);
             });
 
         axios
