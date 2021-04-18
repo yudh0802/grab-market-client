@@ -6,10 +6,12 @@ import { API_URL } from '../config/constants';
 import dayjs from 'dayjs';
 import { Button } from 'antd';
 import { message } from 'antd';
+import ProductCard from '../components/productCard';
 
 function ProductPageComponent() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
+    const [products, setProducts] = useState([]);
     console.log('프로덕트 페이지에서의 product : ', product);
 
     const getProduct = () => {
@@ -23,10 +25,24 @@ function ProductPageComponent() {
                 console.error(error);
             });
     };
-
-    useEffect(function () {
-        getProduct();
-    }, []);
+    const getRecommendations = () => {
+        axios
+            .get(`${API_URL}/products/${id}/recommendation`)
+            .then((result) => {
+                setProducts(result.data.products);
+                console.log('추천 : ', result.data.products);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+    useEffect(
+        function () {
+            getProduct();
+            getRecommendations();
+        },
+        [id]
+    );
 
     if (product === null) {
         return <h1>상품 정보를 받고 있습니다..</h1>;
@@ -81,8 +97,17 @@ function ProductPageComponent() {
                 <Button size="small" type="primary" danger onClick={onClickCancelPruchase} disabled={product.soldout === 0 ? true : false}>
                     구매 취소
                 </Button>
-
-                <pre id="description">{product.description}</pre>
+                <div id="description-box">
+                    <pre id="description">{product.description}</pre>
+                </div>
+                <div>
+                    <h1>추천 상품</h1>
+                    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                        {products.map((product, index) => {
+                            return <ProductCard key={index} product={product} />;
+                        })}
+                    </div>
+                </div>
             </div>
         </div>
     );

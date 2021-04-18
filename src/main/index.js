@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { API_URL } from '../config/constants';
 import { Carousel } from 'antd';
+import ProductCard from '../components/productCard';
 
 dayjs.extend(relativeTime);
 
@@ -61,28 +62,7 @@ function MainPageComponent() {
             <h1 id="product-headline">판매되는 상품들</h1>
             <div id="product-list">
                 {products.map(function (product, index) {
-                    return (
-                        <div className="product-card">
-                            {product.soldout === 1 && <div className="product-blur" />}
-                            <Link className="product-link" to={`/products/${product.id}`}>
-                                <div>
-                                    <img className="product-img" src={`${API_URL}/${product.imageUrl}`} />
-                                </div>
-                                <div className="product-contents">
-                                    <span className="product-name">{product.name}</span>
-                                    <span className="product-price">{product.price}원</span>
-                                </div>
-                                <div className="product-footer">
-                                    <div className="product-seller">
-                                        <img className="product-avatar" src="images/icons/avatar.png" />
-                                        <span>{product.seller}</span>
-                                        {/* <span>{query.name}</span> */}
-                                    </div>
-                                    <span className="product-date">{dayjs(product.createdAt).fromNow()}</span>
-                                </div>
-                            </Link>
-                        </div>
-                    );
+                    return <ProductCard product={product} key={index} />;
                 })}
             </div>
         </div>
