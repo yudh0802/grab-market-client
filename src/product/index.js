@@ -13,6 +13,7 @@ function ProductPageComponent() {
     const [product, setProduct] = useState(null);
     const [products, setProducts] = useState([]);
     console.log('프로덕트 페이지에서의 product : ', product);
+    mixpanel.track('PV : 상품상세');
 
     const getProduct = () => {
         axios
