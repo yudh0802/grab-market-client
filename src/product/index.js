@@ -7,15 +7,13 @@ import dayjs from 'dayjs';
 import { Button } from 'antd';
 import { message } from 'antd';
 import ProductCard from '../components/productCard';
+import mixpanel from 'mixpanel-browser';
 
 function ProductPageComponent() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [products, setProducts] = useState([]);
     console.log('프로덕트 페이지에서의 product : ', product);
-    var mixpanel = require('mixpanel-browser');
-    mixpanel.init('67548a528b15134d4fc3f77becaa7880');
-    mixpanel.track('PV : 상품상세');
 
     const getProduct = () => {
         axios
@@ -41,6 +39,7 @@ function ProductPageComponent() {
     };
     useEffect(
         function () {
+            mixpanel.track('PV : 상품상세');
             getProduct();
             getRecommendations();
         },
@@ -61,6 +60,7 @@ function ProductPageComponent() {
             .catch((error) => {
                 message.error(`에러가 발생했습니다. ${error.message}`);
             });
+        // mixpanel.track('Click : Purchase');
     };
 
     const onClickCancelPruchase = () => {

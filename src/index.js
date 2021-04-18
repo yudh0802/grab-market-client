@@ -4,7 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import mixpanel from 'mixpanel-browser';
 
+mixpanel.init('67548a528b15134d4fc3f77becaa7880');
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
